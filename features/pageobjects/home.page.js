@@ -11,7 +11,7 @@ class HomePage extends Page {
     get buttonMenu() { return $('#react-burger-menu-btn'); }
     get allItemsOption() { return $('#inventory_sidebar_link'); }
     get logoutLink() { return $('#logout_sidebar_link'); }
-    get itemLink1() { return $('#item_4_title_link'); }
+    get itemLink1() { return $('//div[text()="Sauce Labs Backpack"]'); }
     get itemLink2() { return $('#item_0_title_link');}
     get sortingDropdown() { return $("//select[@data-test='product_sort_container']")}
     get cartProductQuantity() { return $('.shopping_cart_badge'); }
@@ -41,10 +41,16 @@ class HomePage extends Page {
         await this.sortingDropdown.selectByIndex(2)
     }
 
-    // await expect(cartProductQuantity).toHaveText('1')
     async addItemToCart() {
+        await this.itemLink1.waitForExist()
         await this.itemLink1.click()
-        await ProductPage.addToCartButton.click()
+
+        if (await ProductPage.addToCartButton.isDisplayed() === true) {
+            await ProductPage.addToCartButton.click()
+        } else {
+            await ProductPage.removeButton.click();
+            await ProductPage.addToCartButton.click()
+        }
         await expect(this.cartProductQuantity).toHaveText('1')
         await ProductPage.backToProductsButton.click();
     }

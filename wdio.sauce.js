@@ -56,9 +56,16 @@ exports.config = {
         // 5 instances get started at a time.
         maxInstances: 5,
         //
-        browserName: 'chrome',
-       
-        acceptInsecureCerts: true
+        browserName: 'Chrome',
+        platformName: 'Android',
+        'appium:deviceName': 'Google Pixel 4a (5G) GoogleAPI Emulator',
+        'appium:platformVersion': '12.0',
+        //browserVersion: 'latest',
+        //acceptInsecureCerts: true,
+        
+        'sauce:options': {
+            appiumVersion: '1.22.1'
+        }
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
@@ -111,8 +118,9 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['chromedriver', 'devtools'],
-    
+    services: ['sauce'],
+    user: 'vugar',
+    key: 'a0167b7a-3428-4f03-b134-51801e6a6b18',
     
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
